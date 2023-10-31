@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="quotes">
+
+    </div>
+
+    <button onclick="getQuotes()">new Quotes</button>
+    <button onclick="tweetNow()">change</button>
+    <script>
+        let realData;
+        let num=Math.floor(Math.random()*100);
+        const tweetNow=()=>{
+            window.open(`https://www.tweet.com?text=${realData[num].text}`);
+        }
+
+        const getNewQuotes=()=>{
+            
+            console.log(realData[num].text);
+            document.getElementById("quotes").innerText=realData[num].text;
+        }
+
+        const getQuotes=async ()=>{
+            try {
+                let data=await fetch("https:/type.fit/api/quotes");
+
+                realData= await data.json();
+                getNewQuotes();
+            }catch (e){
+                console.log(e);
+            }
+        }
+        getQuotes();
+    </script>
+</body>
+</html>
